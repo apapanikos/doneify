@@ -1,12 +1,12 @@
-import { type NextPage } from "next";
-import Head from "next/head";
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { type NextPage } from 'next'
+import Head from 'next/head'
+import Link from 'next/link'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
-import { trpc } from "../utils/trpc";
+import { trpc } from '../utils/trpc'
 
 const Home: NextPage = () => {
-  const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
+  const hello = trpc.example.hello.useQuery({ text: 'from tRPC' })
 
   return (
     <>
@@ -58,18 +58,18 @@ const Home: NextPage = () => {
         <AuthShowcase />
       </main>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
 
 const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
+  const { data: sessionData } = useSession()
 
   const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
     undefined, // no input
-    { enabled: sessionData?.user !== undefined },
-  );
+    { enabled: sessionData?.user !== undefined }
+  )
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
@@ -83,19 +83,18 @@ const AuthShowcase: React.FC = () => {
       )}
       <button
         className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
-        onClick={sessionData ? () => signOut() : () => signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
+        onClick={sessionData ? () => signOut() : () => signIn()}>
+        {sessionData ? 'Sign out' : 'Sign in'}
       </button>
     </div>
-  );
-};
+  )
+}
 
 type TechnologyCardProps = {
-  name: string;
-  description: string;
-  documentation: string;
-};
+  name: string
+  description: string
+  documentation: string
+}
 
 const TechnologyCard: React.FC<TechnologyCardProps> = ({
   name,
@@ -110,10 +109,9 @@ const TechnologyCard: React.FC<TechnologyCardProps> = ({
         className="m-auto mt-3 w-fit text-sm text-violet-500 underline decoration-dotted underline-offset-2"
         href={documentation}
         target="_blank"
-        rel="noreferrer"
-      >
+        rel="noreferrer">
         Documentation
       </Link>
     </section>
-  );
-};
+  )
+}
